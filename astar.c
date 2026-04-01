@@ -155,7 +155,7 @@ int astar(Graph *g, int src, int dest, int *path, int *pathLen)
     *pathLen = 0;
     if (gScore[dest] >= INF)
     {
-        printf("[A*] No path found from '%s' to '%s'!\n",
+        LOG("[A*] No path found from '%s' to '%s'!\n",
                g->nodes[src].name, g->nodes[dest].name);
         return INF;
     }
@@ -170,16 +170,16 @@ int astar(Graph *g, int src, int dest, int *path, int *pathLen)
         path[i] = tmp[len - 1 - i];
     *pathLen = len;
 
-    printf("\n[A*] Optimal evacuation route (heuristic-guided):\n");
-    printf("  ");
+    LOG("\n[A*] Optimal evacuation route (heuristic-guided):\n");
+    LOG("  ");
     for (int i = 0; i < len; i++)
     {
-        printf("%s", g->nodes[path[i]].name);
+        LOG("%s", g->nodes[path[i]].name);
         if (i < len - 1)
-            printf(" → ");
+            LOG(" → ");
     }
-    printf("\n  Total distance : %d units\n", (int)gScore[dest]);
-    printf("  Nodes explored : %d (vs Dijkstra explores all reachable)\n", nodesExplored);
+    LOG("\n  Total distance : %d units\n", (int)gScore[dest]);
+    LOG("  Nodes explored : %d (vs Dijkstra explores all reachable)\n", nodesExplored);
 
     return (int)gScore[dest];
 }

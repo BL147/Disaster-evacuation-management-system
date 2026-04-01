@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evacuation Graph UI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Evacuation Graph Dashboard</h1>
+      <p>Visualize the disaster evacuation network and run BFS, Dijkstra, A*, Kruskal and reroute operations in realtime.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="card">
+        <h2>Realtime Controls</h2>
+        <button id="refreshGraph">Refresh Graph</button>
+      </div>
+
+      <div class="card">
+        <h3>BFS Danger Radius</h3>
+        <label>Origin node</label>
+        <select id="bfsOrigin"></select>
+        <label>Radius (hops)</label>
+        <input id="bfsRadius" type="number" min="1" value="2" />
+        <button id="runBfs">Run BFS</button>
+      </div>
+
+      <div class="card">
+        <h3>Dijkstra</h3>
+        <label>Source node</label>
+        <select id="dijkstraSrc"></select>
+        <label>Destination node</label>
+        <select id="dijkstraDest"></select>
+        <button id="runDijkstra">Run Dijkstra</button>
+      </div>
+
+      <div class="card">
+        <h3>A* Search</h3>
+        <label>Source node</label>
+        <select id="astarSrc"></select>
+        <label>Destination node</label>
+        <select id="astarDest"></select>
+        <button id="runAstar">Run A* Search</button>
+      </div>
+
+      <div class="card">
+        <h3>Compare</h3>
+        <label>Source node</label>
+        <select id="compareSrc"></select>
+        <label>Destination node</label>
+        <select id="compareDest"></select>
+        <button id="runCompare">Compare Dijkstra vs A*</button>
+      </div>
+
+      <div class="card">
+        <h3>Kruskal MST</h3>
+        <button id="runKruskal">Show Minimum Road Backbone</button>
+      </div>
+
+      <div class="card">
+        <h3>Dynamic Reroute</h3>
+        <label>Road source</label>
+        <select id="rerouteSrc"></select>
+        <label>Road destination</label>
+        <select id="rerouteDest"></select>
+        <label>Evacuee node</label>
+        <select id="rerouteEvacuee"></select>
+        <label>Shelter node</label>
+        <select id="rerouteShelter"></select>
+        <button id="runReroute">Run Reroute</button>
+      </div>
+    </section>
+
+    <section class="canvas-panel">
+      <div class="card canvas-card">
+        <h2>Graph View</h2>
+        <svg id="graphSvg" viewBox="0 0 900 540"></svg>
+      </div>
+
+      <div class="card">
+        <h2>Result</h2>
+        <pre id="resultArea">Load the graph and choose an operation.</pre>
+      </div>
+
+      <div class="card">
+        <h2>Algorithm Insight</h2>
+        <div id="insightText">Select an algorithm to see why it is used for evacuation planning.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

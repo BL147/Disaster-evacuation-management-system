@@ -132,7 +132,7 @@ int dijkstra(Graph *g, int src, int dest, int *path, int *pathLen)
     *pathLen = 0;
     if (dist[dest] == INF)
     {
-        printf("[Dijkstra] No path found from '%s' to '%s'!\n",
+        LOG("[Dijkstra] No path found from '%s' to '%s'!\n",
                g->nodes[src].name, g->nodes[dest].name);
         return INF;
     }
@@ -150,15 +150,15 @@ int dijkstra(Graph *g, int src, int dest, int *path, int *pathLen)
         path[i] = tmp[len - 1 - i];
     *pathLen = len;
 
-    printf("\n[Dijkstra] Shortest evacuation route:\n");
-    printf("  ");
+    LOG("\n[Dijkstra] Shortest evacuation route:\n");
+    LOG("  ");
     for (int i = 0; i < len; i++)
     {
-        printf("%s", g->nodes[path[i]].name);
+        LOG("%s", g->nodes[path[i]].name);
         if (i < len - 1)
-            printf(" → ");
+            LOG(" → ");
     }
-    printf("\n  Total distance: %d units\n", dist[dest]);
+    LOG("\n  Total distance: %d units\n", dist[dest]);
 
     return dist[dest];
 }

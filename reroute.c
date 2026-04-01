@@ -25,22 +25,22 @@
 void rerouteAfterBlockage(Graph *g, int roadSrc, int roadDest,
                           int evacuee, int shelter)
 {
-    printf("\n╔══════════════════════════════════════╗\n");
-    printf("║      DYNAMIC REROUTING TRIGGERED     ║\n");
-    printf("╚══════════════════════════════════════╝\n");
+    LOG("\n╔══════════════════════════════════════╗\n");
+    LOG("║      DYNAMIC REROUTING TRIGGERED     ║\n");
+    LOG("╚══════════════════════════════════════╝\n");
 
     // Step 1: Block the road
     blockEdge(g, roadSrc, roadDest);
 
     // Step 2: Check if shelter is still reachable
-    printf("\n[Reroute] Checking if '%s' is still reachable from '%s'...\n",
+    LOG("\n[Reroute] Checking if '%s' is still reachable from '%s'...\n",
            g->nodes[shelter].name, g->nodes[evacuee].name);
 
     if (!bfsPathExists(g, evacuee, shelter))
     {
-        printf("[CRITICAL] ❌ '%s' is now UNREACHABLE from '%s'!\n",
+        LOG("[CRITICAL] ❌ '%s' is now UNREACHABLE from '%s'!\n",
                g->nodes[shelter].name, g->nodes[evacuee].name);
-        printf("[Reroute] Scanning all shelters for alternatives...\n\n");
+        LOG("[Reroute] Scanning all shelters for alternatives...\n\n");
 
         // Try every other shelter
         int found = 0;
@@ -50,7 +50,7 @@ void rerouteAfterBlockage(Graph *g, int roadSrc, int roadDest,
             {
                 if (bfsPathExists(g, evacuee, i))
                 {
-                    printf("[Reroute] ✓ Alternative shelter found: '%s'\n",
+                    LOG("[Reroute] ✓ Alternative shelter found: '%s'\n",
                            g->nodes[i].name);
                     int path[MAX_NODES], pathLen;
                     astar(g, evacuee, i, path, &pathLen);
@@ -60,14 +60,14 @@ void rerouteAfterBlockage(Graph *g, int roadSrc, int roadDest,
             }
         }
         if (!found)
-            printf("[CRITICAL] ❌ NO shelters reachable! Area is completely cut off.\n");
+            LOG("[CRITICAL] ❌ NO shelters reachable! Area is completely cut off.\n");
         return;
     }
 
     // Step 3: Re-run A* for new optimal path
-    printf("[Reroute] Path exists — finding new optimal route via A*...\n");
+    LOG("[Reroute] Path exists — finding new optimal route via A*...\n");
     int newPath[MAX_NODES], newLen;
     int newDist = astar(g, evacuee, shelter, newPath, &newLen);
 
-    printf("\n[Reroute] ✓ Rerouting complete. New distance: %d units\n", newDist);
+    LOG("\n[Reroute] ✓ Rerouting complete. New distance: %d units\n", newDist);
 }

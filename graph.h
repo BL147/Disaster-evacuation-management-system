@@ -4,6 +4,14 @@
 #define MAX_NODES 100
 #define INF 99999
 
+extern int QUIET_MODE;
+#define LOG(...)                 \
+    do                           \
+    {                            \
+        if (!QUIET_MODE)         \
+            printf(__VA_ARGS__); \
+    } while (0)
+
 // ---------- Node types ----------
 typedef enum
 {

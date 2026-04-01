@@ -26,8 +26,8 @@ int bfsFloodZones(Graph *g, int origin, int danger_radius, int *affected)
     visited[origin] = 1;
     queue[rear++] = origin;
 
-    printf("\n[BFS] Disaster origin: '%s'\n", g->nodes[origin].name);
-    printf("[BFS] Calculating danger zones (radius = %d hops)...\n\n", danger_radius);
+    LOG("\n[BFS] Disaster origin: '%s'\n", g->nodes[origin].name);
+    LOG("[BFS] Calculating danger zones (radius = %d hops)...\n\n", danger_radius);
 
     while (front < rear)
     {
@@ -40,7 +40,7 @@ int bfsFloodZones(Graph *g, int origin, int danger_radius, int *affected)
         if (curr != origin)
         {
             affected[count++] = curr;
-            printf("  ⚠ DANGER: '%s' [%d hop(s) away]\n",
+            LOG("  ⚠ DANGER: '%s' [%d hop(s) away]\n",
                    g->nodes[curr].name, depth[curr]);
         }
 
@@ -56,7 +56,7 @@ int bfsFloodZones(Graph *g, int origin, int danger_radius, int *affected)
         }
     }
 
-    printf("\n[BFS] Total affected locations: %d\n", count);
+    LOG("\n[BFS] Total affected locations: %d\n", count);
     return count;
 }
 

@@ -58,7 +58,7 @@ void blockEdge(Graph *g, int src, int dest)
             e->blocked = 1;
             break;
         }
-    printf("[!] Road between '%s' and '%s' is now CLOSED.\n",
+    LOG("[!] Road between '%s' and '%s' is now CLOSED.\n",
            g->nodes[src].name, g->nodes[dest].name);
 }
 
@@ -76,25 +76,25 @@ void unblockEdge(Graph *g, int src, int dest)
             e->blocked = 0;
             break;
         }
-    printf("[✓] Road between '%s' and '%s' is now OPEN.\n",
+    LOG("[✓] Road between '%s' and '%s' is now OPEN.\n",
            g->nodes[src].name, g->nodes[dest].name);
 }
 
 void printGraph(Graph *g)
 {
     const char *types[] = {"ZONE", "SHELTER", "JUNCTION"};
-    printf("\n===== City Road Network =====\n");
+    LOG("\n===== City Road Network =====\n");
     for (int i = 0; i < g->count; i++)
     {
-        printf("[%d] %s (%s)\n", i, g->nodes[i].name, types[g->nodes[i].type]);
+        LOG("[%d] %s (%s)\n", i, g->nodes[i].name, types[g->nodes[i].type]);
         for (Edge *e = g->nodes[i].head; e; e = e->next)
         {
-            printf("     --> %s (dist: %d)%s\n",
+            LOG("     --> %s (dist: %d)%s\n",
                    g->nodes[e->dest].name, e->weight,
                    e->blocked ? " [BLOCKED]" : "");
         }
     }
-    printf("=============================\n\n");
+    LOG("=============================\n\n");
 }
 
 void freeGraph(Graph *g)

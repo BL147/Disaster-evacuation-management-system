@@ -98,9 +98,9 @@ int kruskalMST(Graph *g)
 
     makeSet(g->count);
 
-    printf("\n[Kruskal's MST] Minimum road network to connect all locations:\n");
-    printf("  %-20s %-20s  Cost\n", "From", "To");
-    printf("  %-20s %-20s  ----\n", "----", "--");
+    LOG("\n[Kruskal's MST] Minimum road network to connect all locations:\n");
+    LOG("  %-20s %-20s  Cost\n", "From", "To");
+    LOG("  %-20s %-20s  ----\n", "----", "--");
 
     int totalWeight = 0, edgesUsed = 0;
 
@@ -111,15 +111,15 @@ int kruskalMST(Graph *g)
         if (find(u) != find(v))
         {
             unite(u, v);
-            printf("  %-20s %-20s  %d\n",
+            LOG("  %-20s %-20s  %d\n",
                    g->nodes[u].name, g->nodes[v].name, edges[i].weight);
             totalWeight += edges[i].weight;
             edgesUsed++;
         }
     }
 
-    printf("\n  MST Total Cost : %d units\n", totalWeight);
-    printf("  Roads used     : %d (minimum to connect %d locations)\n",
+    LOG("\n  MST Total Cost : %d units\n", totalWeight);
+    LOG("  Roads used     : %d (minimum to connect %d locations)\n",
            edgesUsed, g->count);
 
     return totalWeight;
