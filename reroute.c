@@ -4,24 +4,6 @@
 #include "astar.h"
 #include "dijkstra.h"
 
-/*
- * DYNAMIC REROUTING
- * -----------------
- * Real disasters = roads collapse, flood, or get blocked in real-time.
- * Static pre-planned routes become invalid.
- *
- * Strategy:
- *   Step 1: Block the road (mark edge as blocked)
- *   Step 2: BFS connectivity check — O(V+E), fast sanity check
- *   Step 3: If reachable → A* gives new optimal path quickly
- *   Step 4: If completely cut off → alert, try all shelters
- *
- * Why A* for rerouting instead of Dijkstra?
- *   - In an emergency, SPEED matters
- *   - A* explores fewer nodes due to heuristic guidance
- *   - Both return optimal paths; A* just gets there faster
- */
-
 void rerouteAfterBlockage(Graph *g, int roadSrc, int roadDest,
                           int evacuee, int shelter)
 {
@@ -34,12 +16,12 @@ void rerouteAfterBlockage(Graph *g, int roadSrc, int roadDest,
 
     // Step 2: Check if shelter is still reachable
     LOG("\n[Reroute] Checking if '%s' is still reachable from '%s'...\n",
-           g->nodes[shelter].name, g->nodes[evacuee].name);
+        g->nodes[shelter].name, g->nodes[evacuee].name);
 
     if (!bfsPathExists(g, evacuee, shelter))
     {
         LOG("[CRITICAL] ❌ '%s' is now UNREACHABLE from '%s'!\n",
-               g->nodes[shelter].name, g->nodes[evacuee].name);
+            g->nodes[shelter].name, g->nodes[evacuee].name);
         LOG("[Reroute] Scanning all shelters for alternatives...\n\n");
 
         // Try every other shelter
@@ -51,7 +33,7 @@ void rerouteAfterBlockage(Graph *g, int roadSrc, int roadDest,
                 if (bfsPathExists(g, evacuee, i))
                 {
                     LOG("[Reroute] ✓ Alternative shelter found: '%s'\n",
-                           g->nodes[i].name);
+                        g->nodes[i].name);
                     int path[MAX_NODES], pathLen;
                     astar(g, evacuee, i, path, &pathLen);
                     found = 1;

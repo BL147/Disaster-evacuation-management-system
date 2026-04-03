@@ -2,18 +2,6 @@
 #include <string.h>
 #include "bfs.h"
 
-/*
- * BFS - Breadth First Search
- * --------------------------
- * Why BFS for danger zone flooding?
- *   - Disaster spreads level by level (flood, fire radius)
- *   - BFS naturally explores nodes in order of "hops from origin"
- *   - Time complexity: O(V + E) — visits every node/edge once
- *   - Better than DFS here: DFS goes deep first, missing nearby zones
- *
- * Use case: Find all locations within `danger_radius` hops of disaster origin
- */
-
 int bfsFloodZones(Graph *g, int origin, int danger_radius, int *affected)
 {
     int visited[MAX_NODES] = {0};
@@ -41,7 +29,7 @@ int bfsFloodZones(Graph *g, int origin, int danger_radius, int *affected)
         {
             affected[count++] = curr;
             LOG("  ⚠ DANGER: '%s' [%d hop(s) away]\n",
-                   g->nodes[curr].name, depth[curr]);
+                g->nodes[curr].name, depth[curr]);
         }
 
         // Explore neighbors

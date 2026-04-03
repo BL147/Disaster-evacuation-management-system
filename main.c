@@ -336,25 +336,6 @@ static void runApiMode(int argc, char **argv, Graph *g)
 /*
  * DISASTER EVACUATION ROUTE OPTIMISATION
  * =======================================
- * Sample city map (12 nodes):
- *
- *  [0] Zone A ──10── [4] Junction 1 ──15── [8]  Shelter North
- *      |                   |                         |
- *     20                  12                        10
- *      |                   |                         |
- *  [1] Zone B ──8───  [5] Junction 2 ──20── [9]  Shelter East
- *      |                   |
- *     15                  18
- *      |                   |
- *  [2] Zone C ──25── [6] Junction 3 ──30── [10] Shelter South
- *      |                   |
- *     10                  22
- *      |                   |
- *  [3] Zone D ──14── [7] Junction 4 ──16── [11] Shelter West
- *
- * Zones are danger areas (evacuation sources)
- * Shelters are safe destinations
- * Junctions are intermediate road intersections
  */
 
 Graph *buildSampleCity()

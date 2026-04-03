@@ -3,31 +3,6 @@
 #include <math.h>
 #include "astar.h"
 
-/*
- * A* SEARCH ALGORITHM
- * -------------------
- * An informed search that uses a heuristic to guide exploration.
- *
- * f(n) = g(n) + h(n)
- *   g(n) = actual cost from start to node n  (like Dijkstra)
- *   h(n) = estimated cost from n to goal     (heuristic — Euclidean distance)
- *
- * Why A* over Dijkstra for evacuation?
- *   - Dijkstra explores ALL directions equally (blind)
- *   - A* focuses toward the shelter using GPS coordinates
- *   - In large city maps, A* skips irrelevant roads entirely
- *   - Explores FEWER nodes → faster in practice
- *
- * Time Complexity: O(E log V) in best case (good heuristic)
- *   - Worst case same as Dijkstra: O((V+E) log V)
- *   - Heuristic NEVER overestimates → result is always optimal (admissible)
- *
- * Why Euclidean heuristic?
- *   - Nodes have (x, y) coordinates (like a city map)
- *   - Straight-line distance is always ≤ actual road distance
- *   - This makes it "admissible" → A* stays optimal
- */
-
 // Euclidean distance between two nodes (heuristic)
 static double heuristic(Graph *g, int a, int b)
 {
@@ -156,7 +131,7 @@ int astar(Graph *g, int src, int dest, int *path, int *pathLen)
     if (gScore[dest] >= INF)
     {
         LOG("[A*] No path found from '%s' to '%s'!\n",
-               g->nodes[src].name, g->nodes[dest].name);
+            g->nodes[src].name, g->nodes[dest].name);
         return INF;
     }
 

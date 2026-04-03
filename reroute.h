@@ -12,6 +12,7 @@
  *   3. Re-runs A* (faster) to find the new best path
  *   4. Compares old vs new route cost
  */
+
 void rerouteAfterBlockage(Graph *g, int roadSrc, int roadDest,
                           int evacuee, int shelter);
 

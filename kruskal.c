@@ -2,29 +2,6 @@
 #include <stdlib.h>
 #include "kruskal.h"
 
-/*
- * KRUSKAL'S ALGORITHM (Minimum Spanning Tree)
- * --------------------------------------------
- * Finds the MINIMUM set of roads that keeps the entire city connected.
- *
- * Why MST for evacuation planning?
- *   - Emergency planners need to know: "Which roads are critical?"
- *   - MST = the backbone road network with minimum total cost
- *   - If you had to build/maintain only N-1 roads, MST tells you which ones
- *   - Useful for pre-disaster infrastructure planning
- *
- * Algorithm:
- *   1. Sort ALL edges by weight (ascending)
- *   2. Pick each edge — add it if it doesn't form a cycle
- *   3. Stop when we have V-1 edges (spanning tree complete)
- *
- * Cycle detection: Union-Find (Disjoint Set Union) — O(α(V)) per operation
- *
- * Time Complexity: O(E log E) — dominated by sorting
- *   - Better than Prim's O(E log V) with adjacency list for sparse graphs
- *   - Prim's is better for dense graphs; Kruskal's wins here (city roads = sparse)
- */
-
 // ---- Union-Find (DSU) ----
 static int parent[MAX_NODES], rank_[MAX_NODES];
 
@@ -112,7 +89,7 @@ int kruskalMST(Graph *g)
         {
             unite(u, v);
             LOG("  %-20s %-20s  %d\n",
-                   g->nodes[u].name, g->nodes[v].name, edges[i].weight);
+                g->nodes[u].name, g->nodes[v].name, edges[i].weight);
             totalWeight += edges[i].weight;
             edgesUsed++;
         }
@@ -120,7 +97,7 @@ int kruskalMST(Graph *g)
 
     LOG("\n  MST Total Cost : %d units\n", totalWeight);
     LOG("  Roads used     : %d (minimum to connect %d locations)\n",
-           edgesUsed, g->count);
+        edgesUsed, g->count);
 
     return totalWeight;
 }

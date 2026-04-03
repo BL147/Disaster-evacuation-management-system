@@ -2,23 +2,6 @@
 #include <string.h>
 #include "dijkstra.h"
 
-/*
- * DIJKSTRA'S ALGORITHM
- * --------------------
- * Finds the single-source shortest path in a weighted graph.
- *
- * Why Dijkstra for evacuation routing?
- *   - Roads have different distances/congestion weights
- *   - Guarantees the OPTIMAL (shortest/cheapest) route to shelter
- *   - Works on any weighted graph with non-negative edges
- *
- * Time Complexity: O((V + E) log V) with a min-heap
- *   - V = nodes (locations), E = edges (roads)
- *   - Far better than Bellman-Ford's O(VE) for dense road maps
- *
- * We implement a simple min-heap (priority queue) manually in C.
- */
-
 // ---- Min-Heap (Priority Queue) ----
 typedef struct
 {
@@ -133,7 +116,7 @@ int dijkstra(Graph *g, int src, int dest, int *path, int *pathLen)
     if (dist[dest] == INF)
     {
         LOG("[Dijkstra] No path found from '%s' to '%s'!\n",
-               g->nodes[src].name, g->nodes[dest].name);
+            g->nodes[src].name, g->nodes[dest].name);
         return INF;
     }
 

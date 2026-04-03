@@ -161,7 +161,7 @@ function edgeListFromPath(path) {
 
 async function runOperation(endpoint, payload, label, insight) {
   try {
-    const url = payload ? '/api/' + endpoint : '/api/' + endpoint + payload;
+    const url = '/api/' + endpoint;
     const init = payload ? { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } } : undefined;
     const res = await fetch(url, init);
     const data = await res.json();
